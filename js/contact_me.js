@@ -22,6 +22,7 @@ $(function() {
       $.ajax({
         url: "https://formspree.io/mlelodwz",
         type: "POST",
+        dataType: "json",
         data: {
           name: name,
           phone: phone,
