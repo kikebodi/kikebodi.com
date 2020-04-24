@@ -92,7 +92,7 @@
             <li>Enable one-way data binding on this view</li>
             <li>Set the project structure with ViewModel and LiveData and attach it to the custom view</li>
             <li>Enable two-way data binding</li>
-          </ol> 
+          </ol>
 
 
           <h2 class="section-heading">Steps</h2>
@@ -118,48 +118,48 @@
           <p>First, the layout</p>
 
           <pre class="prettyprint lang-xml">
-            <?xml version="1.0" encoding="utf-8"?>
-            <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+  &lt;layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"&gt;
 
-            <data>
-             <variable
-             name="view"
-             type="com.kikebodi.databindingexample.AmountSelectorView" />
-           </data>
+    &lt;data&gt;
+      &lt;variable
+        name="view"
+        type="com.kikebodi.databindingexample.AmountSelectorView" /&gt;
+    &lt;/data&gt;
 
-           <LinearLayout
-           xmlns:android="http://schemas.android.com/apk/res/android"
-           android:orientation="horizontal"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
+    &lt;LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"&gt;
 
-           <Button
-           android:layout_width="80dp"
-           android:layout_height="80dp"
-           android:padding="@dimen/spacing_half"
-           android:text=”Minus”
-           android:onClick="@{() -> view.onMinusClicked()}"/>
+      &lt;Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="@dimen/spacing_half"
+        android:text=”Minus”
+        android:onClick="@{() -&gt; view.onMinusClicked()}" /&gt;
 
-           <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent"
-           android:gravity="center"
-           android:padding="@dimen/spacing_standard"
-           android:textSize="40sp"
-           app:numberInput="@{view.selectedAmount}"
-           tools:text="7"/>
+      &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/spacing_standard"
+        android:textSize="40sp"
+        app:numberInput="@{view.selectedAmount}"
+        tools:text="7" /&gt;
 
-           <Button
-           android:layout_width="80dp"
-           android:layout_height="80dp"
-           android:padding="@dimen/spacing_half"
-           android:text=”Plus”
-           android:onClick="@{() -> view.onPlusClicked()}"/>
-         </LinearLayout>
-
-       </layout>
-     </pre>
+      &lt;Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="@dimen/spacing_half"
+        android:text=”Plus”
+        android:onClick="@{() -&gt; view.onPlusClicked()}" /&gt;
+    &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+          </pre>
 
      <p>Now, the Kotlin Custom View class</p>
 
@@ -184,10 +184,10 @@ class AmountSelectorView @JvmOverloads constructor(context: Context, attrs: Attr
 <p>So far, we have the Custom View ready. Now we can add it to the parent layout. In this case, it will be <code>main_layout.xml</code></p>
 
 <pre class="prettyprint lang-xml">
-  <com.kikebodi.databindingexample.AmountSelectorView
-   android:id="@+id/amountView"
-   android:layout_width="wrap_content"
-   android:layout_height="wrap_content" />
+&lt;com.kikebodi.databindingexample.AmountSelectorView
+  android:id="@+id/amountView"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content" /&gt;
 </pre>
 
 <p>At this point, you should be able to run the project and see a screen like this:</p>
@@ -257,40 +257,42 @@ override fun onCreate(savedInstanceState: Bundle?) {
   <p>On the XML we will:</p>
 
   <pre class="prettyprint lang-xml">
-    <?xml version="1.0" encoding="utf-8"?>
-<layout>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;layout&gt;
 
-   <data>
-       <variable
-           name="activity"
-           type="com.kikebodi.databindingexample.MainActivity" />
-   </data>
+  &lt;data&gt;
+    &lt;variable
+      name="activity"
+      type="com.kikebodi.databindingexample.MainActivity" /&gt;
+  &lt;/data&gt;
 
-   <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto"
-       xmlns:tools="http://schemas.android.com/tools"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       tools:context=".MainActivity">
+  &lt;androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"&gt;
 
-       <com.kikebodi.databindingexample.AmountSelectorView
-           android:id="@+id/amountView"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           app:amount="@={activity.vm.number}"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
-   </androidx.constraintlayout.widget.ConstraintLayout>
- </layout>
+  &lt;com.kikebodi.databindingexample.AmountSelectorView
+    android:id="@+id/amountView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:amount="@={activity.vm.number}"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" /&gt;
+
+  &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+&lt;/layout&gt;
   </pre>
 
   <p>The most important part here is the difference between <code>@{}</code> and <code>@={}</code>.
 When the first enables regular data binding, the second defines two-way data binding. </p>
 
 <p>Therefore, if we try to run the code now. It will fail.</p>
-  
+
   <h3>Enable two-way data binding</h3>
 
    <pre class="prettyprint lang-java">
