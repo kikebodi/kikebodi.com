@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kike Bodi - Senior Android Developer and entrepreneur</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Kike Bodi</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://miro.medium.com/max/1400/0*jdhfSlMBiQ_u4WBD')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>How to contribute to a project</h1>
+            <h2 class="subheading">As small guide on the process required to complete a task for the any Git repository</h2>
+            <span class="meta">Posted by
+              <a href="about.html">Kike Bodi</a>
+              on March 13, 2021</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+          <p>This post is meant to be a guide for the developers that work with me.</p>
+
+          <p>Sometimes is difficult to understand the process to contribute in a Git repository. In addition to the implementation details, we need to keep a clean Git log.</p>
+
+          <p>This helps the collaboration between developers and the bug fixing.</p>
+
+          <p>Let's start with the basics</p>
+
+          <h2 class="section-heading">The basics</h2>
+
+          <h3>What is a Git repository</h3>
+
+          <p>A repository is like a folder for your project. Your project repository contains all the files in your repository and stores the revision history of each file.</p>
+
+          <p>You can also discuss and manage your project work within the repository.</p>
+
+          <h3>What is a branch</h3>
+
+          <p>Any modern version control system has some mechanism to support the use of branches.</p>
+
+          <p>When we talk about branches, it means that you have taken the main development branch (master) and from there you have continued working without following the main development branch.</p>
+
+          <h3>What is a Commit</h3>
+
+          <p>A "commit" is the action of saving or uploading your files to your remote repository (an update of your changes).</p>
+
+          <p>The idea of the "commit" is to add incremental changes to the feature you are developing.</p>
+
+          <h3>What is a Pull Request</h3>
+
+          <p>A pull request is a request that the creator of a branch makes to the rest of the team so that the latter review the changes made and allows the merge into the main (or other) branch.</p>
+
+          <p>The developers assigned as reviewers must examine the code and point out some improvements or errors that we could apply to the code.</p>
+
+          <p>The branch will only be merge when the reviewers have approved the changes.</p>
+
+
+          <h2 class="section-heading">Steps</h2>
+
+          <p>I don’t want to make this post too long, so I will post the code in big chunks. If you need further explanation, I made a <a href="https://www.youtube.com/watch?v=CoOcEv6sFkI" target="_blank">life coding video</a> and of course, I uploaded the code to <a href="https://github.com/kikebodi/custom_view_databinding" target="_blank">Github</a>. so if you missed any step you can check it out there.</p>
+
+          <h3>Prerequisites</h3>
+
+          <p>Before we get started with the Custom View, I will create a blank Activity project on Android Studio.</p>
+
+          <p>Once we have it, let's enable data binding in our app first.</p>
+
+          <p>Add <code>apply plugin: ‘kotlin-kapt’</code> on the top of app build.gradle.</p>
+
+          <p>and <code>dataBinding { enabled = true }</code> somewhere in the middle</p>
+
+
+          <h3>Create Kotlin Custom View</h3>
+
+          <p>In this post, I assume some experience on Android and Kotlin common practices and standards. So, I will copy-paste the full code without going into much detail on the basic things. Nevertheless, if you miss any step, please, check the live coding video, where I develop this app step by step.</p>
+
+          <p>First, the layout</p>
+
+          <pre class="prettyprint lang-xml">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+  &lt;layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"&gt;
+
+    &lt;data&gt;
+      &lt;variable
+        name="view"
+        type="com.kikebodi.databindingexample.AmountSelectorView" /&gt;
+    &lt;/data&gt;
+
+    &lt;LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"&gt;
+
+      &lt;Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="@dimen/spacing_half"
+        android:text=”Minus”
+        android:onClick="@{() -&gt; view.onMinusClicked()}" /&gt;
+
+      &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/spacing_standard"
+        android:textSize="40sp"
+        app:numberInput="@{view.selectedAmount}"
+        tools:text="7" /&gt;
+
+      &lt;Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="@dimen/spacing_half"
+        android:text=”Plus”
+        android:onClick="@{() -&gt; view.onPlusClicked()}" /&gt;
+    &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+          </pre>
+
+     <p>Now, the Kotlin Custom View class</p>
+
+     <pre class="prettyprint lang-java">
+class AmountSelectorView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0, defStyleRes: Int = 0)
+ : LinearLayout(context, attrs, defStyle, defStyleRes) {
+
+   val selectedAmount = ObservableInt(0)
+
+   private val layoutInflater =
+       context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+   private val viewBinding = AmountSelectorViewBinding.inflate(layoutInflater, this, true).apply {
+       this.view = this@AmountSelectorView
+   }
+
+   fun onMinusClicked() = selectedAmount.set(selectedAmount.get() - 1)
+
+   fun onPlusClicked() = selectedAmount.set(selectedAmount.get() + 1)
+ }
+</pre>
+
+<p>So far, we have the Custom View ready. Now we can add it to the parent layout. In this case, it will be <code>main_layout.xml</code></p>
+
+<pre class="prettyprint lang-xml">
+&lt;com.kikebodi.databindingexample.AmountSelectorView
+  android:id="@+id/amountView"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content" /&gt;
+</pre>
+
+<p>At this point, you should be able to run the project and see a screen like this:</p>
+
+<div>
+  <img src="img/databinding/amount-selector-custom-view.png" class="img-fluid" alt="Amount Selector Custom View">
+</div>
+
+<h3>Enable one-way data binding</h3>
+
+<p>What we have so far is a regular Custom View, now let’s add the data binding tweak.</p>
+
+<p>We will add the <code>BindingAdapter</code> to set our attribute.</p>
+
+<pre class="prettyprint lang-java">
+@BindingAdapter("amount")
+fun setAmount(newAmount: Int) {
+  if(view.selectedAmount.get() != newAmount){
+    view.selectedAmount.set(newAmount)
+  }
+}
+</pre>
+
+<p>Now, we should be able to set the counter throught the XML adding <code>app:amount="@{7}"</code> on our component in <code>main_layout.xml</code></p>
+
+
+<h3>Set up LiveData and ViewModel and attach it to the custom view.</h3>
+
+<p>Let's prepare the app now to handle streams of data with LiveData and (although it’s not strictly necessary) ViewModel components. This way we will handle 4 of the 8 Android Architecture Components that exist, Data binding, Lifecycles, LiveData and ViewModel. </p>
+
+<pre class="prettyprint lang-java">
+class MainViewModel: ViewModel() {
+   val number = MutableLiveData<Int>()
+}
+</pre>
+
+<p>Note that we defined a MutableLiveData value. The fact that is MutableLiveData and not LiveData will make it possible to attach to our two-way data binding component, otherwise, the data only has one way (which is great when reading from Database).</p>
+
+<p>Now, define attach the ViewModel to the Activity.</p>
+
+<pre class="prettyprint lang-java">
+val vm = MainViewModel().also {
+   it.number.observe(this, Observer<Int> { amount ->
+       Toast.makeText(this@MainActivity, "Amount selected: $amount", Toast.LENGTH_SHORT).show()
+   })
+}
+  </pre>
+
+  <p>What we are doing with the .observe method is attaching a Livecycle owner, which will tell the LiveData when to attach/detach itself (either the screen is shown or not).</p>
+
+  <p>Before attaching the variable to the component we need to enable data binding on MainActivity.</p>
+
+  <p>To attach the data into the XML we will have to inflate the view this way:</p>
+
+  <pre class="prettyprint lang-java">
+override fun onCreate(savedInstanceState: Bundle?) {
+   super.onCreate(savedInstanceState)
+
+   val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+   val view = ActivityMainBinding.inflate(layoutInflater).apply {
+       activity = this@MainActivity
+   }
+   setContentView(view.root)
+}
+  </pre>
+
+  <p>On the XML we will:</p>
+
+  <pre class="prettyprint lang-xml">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;layout&gt;
+
+  &lt;data&gt;
+    &lt;variable
+      name="activity"
+      type="com.kikebodi.databindingexample.MainActivity" /&gt;
+  &lt;/data&gt;
+
+  &lt;androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"&gt;
+
+  &lt;com.kikebodi.databindingexample.AmountSelectorView
+    android:id="@+id/amountView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:amount="@={activity.vm.number}"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" /&gt;
+
+  &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+&lt;/layout&gt;
+  </pre>
+
+  <p>The most important part here is the difference between <code>@{}</code> and <code>@={}</code>.
+When the first enables regular data binding, the second defines two-way data binding. </p>
+
+<p>Therefore, if we try to run the code now. It will fail.</p>
+
+  <h3>Enable two-way data binding</h3>
+
+   <pre class="prettyprint lang-java">
+@InverseBindingMethods(InverseBindingMethod(type = AmountSelectorView::class, attribute = "amount", method = "getAmount"))
+object AmountBindingAdapter{
+   @BindingAdapter("amount")
+   @JvmStatic fun setAmount(view: AmountSelectorView, newAmount: Int) {
+       if(view.selectedAmount.get() != newAmount){
+           view.selectedAmount.set(newAmount)
+       }
+   }
+
+   @InverseBindingAdapter(attribute = "amount")
+   @JvmStatic fun getAmount(view: AmountSelectorView): Int {
+       return view.selectedAmount.get()
+   }
+
+   @BindingAdapter("amountAttrChanged")
+   @JvmStatic fun setListeners(view: AmountSelectorView, attrChange: InverseBindingListener?){
+       view.selectedAmount.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+           override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+               attrChange?.onChange()
+           }
+       })
+   }
+}
+</pre>
+
+<p>Now, we are done. Run the project and see how simple and clean is the usage of our Custom View.</p>
+
+<p>There is a small Easter egg hidden into the code we just did.</p>
+
+<p>There is one part of the code that may lead to a data leak.</p>
+
+<p>Could you find where?</p>
+
+<p>If you did, write me on LinkedIn and tell me how you would fix it.</p>
+
+<h3>Other resources:</h3>
+
+<p><a href="https://github.com/kikebodi/custom_view_databinding" target="_blank">Github repository</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=CoOcEv6sFkI" target="_blank">Life coding video</a></p>
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/kikebodi/" target="_blank">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin-in fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/kikebodi" target="_blank">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Kike Bodi 2021</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/clean-blog.min.js"></script>
+
+    <!-- code prttify -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+
+  </body>
+
+  </html>
