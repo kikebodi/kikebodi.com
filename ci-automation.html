@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cut CI Cost by 50–80% — Free 50-min Mini-Audit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Discover how to cut CI cost by 50–80% and halve review cycles with AI-driven selective testing and PR curation. Book a free 50-minute mini-audit." />
+  <style>
+    :root {
+      --bg:#ffffff; --fg:#111; --muted:#666; --hr:#e6e6e6; --cta:#0a66c2; --ctaText:#fff;
+      --ok:#0f9d58; --warn:#f4b400;
+    }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--fg);
+      font:16px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+    .wrap { max-width:960px; margin:0 auto; padding:20px; }
+    .hero { display:grid; grid-template-columns:1fr; gap:16px; align-items:center; margin-top:8px; }
+    @media (min-width: 880px) { .hero { grid-template-columns: 1.2fr 1fr; } }
+    .pill { display:inline-block; border:1px solid var(--hr); background:#f7f9fc; padding:4px 10px; border-radius:999px; font-size:12px; color:#333 }
+    h1 { font-size:34px; line-height:1.2; margin:8px 0 6px }
+    h2 { font-size:22px; margin:18px 0 8px }
+    h3 { font-size:18px; margin:14px 0 6px }
+    p { margin:10px 0 }
+    .muted { color:var(--muted) }
+    .hr { border:0; border-top:1px solid var(--hr); margin:22px 0 }
+    .cta { display:inline-block; background:var(--cta); color:var(--ctaText); padding:14px 22px; border-radius:10px; font-weight:700; font-size:18px; text-decoration:none }
+    .cta:hover { opacity:.92; text-decoration:none }
+    .cta-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:8px }
+    .arrow { font-size:24px; opacity:.7 }
+    .benefits { display:grid; grid-template-columns:1fr; gap:12px }
+    @media (min-width: 760px) { .benefits { grid-template-columns:1fr 1fr 1fr } }
+    .card { border:1px solid var(--hr); border-radius:12px; padding:14px }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:14px }
+    .img { width:100%; border-radius:12px; border:1px solid var(--hr); object-fit:cover; max-height:360px }
+    blockquote { margin:0; padding:14px; border-left:3px solid var(--cta); background:#f7fbff }
+    details { border:1px solid var(--hr); border-radius:10px; padding:10px 12px; margin:8px 0 }
+    details > summary { cursor:pointer; font-weight:600 }
+    .foot { text-align:center; color:var(--muted); font-size:14px; margin:28px 0 12px }
+    /* mobile sticky CTA */
+    .sticky { position:sticky; bottom:12px; z-index:10; background:rgba(255,255,255,.96); padding:10px; border:1px solid var(--hr); border-radius:12px; display:none }
+    @media (max-width: 680px) { .sticky { display:block } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HERO (message match, single goal, above-the-fold CTA) -->
+    <section class="hero">
+      <div>
+        <span class="pill">VDS 2025 • Limited to 4 slots</span>
+        <h1>Cut CI Cost by <span style="color:var(--ok)">50–80%</span> & Double Review Speed</h1>
+        <p class="muted">AI-driven selective testing + curated PR reviews. Built on your existing CI (GitHub, GitLab, Jenkins). No hype — deterministic results.</p>
+        <div class="cta-row">
+          <a class="cta" href="https://calendly.com/kikebodi" target="_blank" rel="noopener">
+            Book your free 50-minute mini-audit
+          </a>
+          <span class="arrow">⬅︎</span><span class="muted">Get a tailored savings estimate in one session</span>
+        </div>
+        <p class="mono">VDS price: CI Audit ~30h — €4,000 → €3,000</p>
+      </div>
+      <div>
+        <!-- Show service in action (visual cue) -->
+        <img class="img" alt="Developer CI dashboard and pull request checks"
+             src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- BENEFITS -->
+    <section>
+      <h2>What you’ll get in the mini-audit</h2>
+      <div class="benefits">
+        <div class="card">
+          <h3>Pipeline Cost ↓</h3>
+          <p>Map redundant test runs and apply change-impact selection to cut CI runtime and cloud spend <strong>50–80%</strong>.</p>
+        </div>
+        <div class="card">
+          <h3>Faster Reviews</h3>
+          <p>AI pre-curates PRs to reduce nitpicks and back-and-forth. Expect <strong>30–50%</strong> fewer review cycles.</p>
+        </div>
+        <div class="card">
+          <h3>Dev Flow ↑</h3>
+          <p>Instant feedback keeps developers focused; merges are cleaner and quicker.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <h2>How it works</h2>
+      <div class="benefits">
+        <div class="card">
+          <h3>1) Assess</h3>
+          <p>Lightweight review of your CI, test matrix, and PR policies. Identify high-leverage automation points.</p>
+          <img class="img" alt="Code review screen"
+               src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?q=80&w=1600&auto=format&fit=crop" />
+        </div>
+        <div class="card">
+          <h3>2) Propose</h3>
+          <p>We outline selective testing logic + AI review guardrails with an ROI forecast and rollout steps.</p>
+          <img class="img" alt="Engineering architecture sketch"
+               src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop" />
+        </div>
+        <div class="card">
+          <h3>3) Implement</h3>
+          <p>Integrate into GitHub/GitLab/Jenkins with monitoring. Optional ongoing ops: <span class="mono">LLM cost + €50/agent</span>.</p>
+          <img class="img" alt="Terminal and CI pipeline run"
+               src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?q=80&w=1600&auto=format&fit=crop" />
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- SOCIAL PROOF -->
+    <section>
+      <h2>What engineering leaders say</h2>
+      <blockquote>
+        “Fine-tuned GitHub’s Copilot LLM for our development workflow, enabling more accurate
+        responses in both chat and code reviews. This directly improved code quality, reduced repetitive comments,
+        and significantly shortened our review cycles.”
+        <br />— <strong>Denish Shchigrov</strong>, Engineering Manager
+      </blockquote>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- FAQ / OBJECTION HANDLING -->
+    <section>
+      <h2>FAQ</h2>
+      <details>
+        <summary>Will this disrupt our current pipelines?</summary>
+        <p>No. We wrap around your existing CI (GitHub/GitLab/Jenkins) and start with non-blocking checks.</p>
+      </details>
+      <details>
+        <summary>How fast do we see savings?</summary>
+        <p>Teams usually see reductions as soon as selective testing is enabled (often within the first sprint).</p>
+      </details>
+      <details>
+        <summary>Is it safe to skip tests?</summary>
+        <p>We use change-impact analysis and dependency mapping. Critical paths stay covered; low-value runs are skipped.</p>
+      </details>
+      <details>
+        <summary>What’s after the mini-audit?</summary>
+        <p>We propose a fixed-scope CI Audit (~30h) at the VDS price (€3,000), then move to implementation if you approve.</p>
+      </details>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- FINAL CTA -->
+    <section class="center" style="text-align:center; margin-top:6px">
+      <h2>Ready to see your savings?</h2>
+      <p class="muted">Limited VDS availability — only 4 new client slots.</p>
+      <p><a class="cta" href="https://calendly.com/kikebodi" target="_blank" rel="noopener">Book your free 50-minute mini-audit</a></p>
+      <p class="muted">Or email <a href="mailto:me@kikebodi.com">me@kikebodi.com</a> · Tel <a href="tel:+34628490511">+34 628 49 05 11</a></p>
+    </section>
+
+    <!-- mobile sticky CTA -->
+    <div class="sticky">
+      <a class="cta" style="display:block; text-align:center" href="https://calendly.com/kikebodi" target="_blank" rel="noopener">
+        Book free 50-min mini-audit
+      </a>
+    </div>
+
+    <p class="foot">© Imagina Desarrollo 2025 — AI Agents for CI Automation</p>
+  </div>
+</body>
+</html>
