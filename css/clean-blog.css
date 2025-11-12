@@ -476,14 +476,33 @@ footer .copyright {
   text-align: center;
   color: white;
   border: 7px solid #e9ecef;
-  border-radius: 100%;
+  border-radius: 50%;
+  overflow: hidden;
   background-color: #fed136;
+  color: white;
+  
+  /* center text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* remove extra padding from old styles */
+  padding: 0;
 }
 
+.timeline > li .timeline-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
 .timeline > li .timeline-image h4 {
+  margin: 0 !important;          /* kills the 12px top margin */
+  line-height: 1.2;
   font-size: 10px;
-  line-height: 14px;
-  margin-top: 12px;
 }
 
 .timeline > li.timeline-inverted > .timeline-panel {
