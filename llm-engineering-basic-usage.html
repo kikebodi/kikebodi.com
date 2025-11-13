@@ -183,7 +183,7 @@
             )
             print(resp.choices[0].message.content)</code></pre>
 
-                    <p><em>Note:</em> We can also stream Open AI answer by adding <code>stream=True</code> to the object.</p>
+            <p><em>Note:</em> We can also stream Open AI answer by adding <code>stream=True</code> to the object.</p>
 
 
           <h2 class="section-heading">3️⃣ Anthropic API (Stream)</h2>
@@ -206,8 +206,98 @@
                   yield response
                 </code></pre>
 
-          <h2 class="section-heading">💬 Next</h2>
+          <h2 class="section-heading">💬 Update:</h2>
           <p>We will build on top of these APIs, enabling tools, adding context and creating Agents in LangChain.</p>
+
+          <h2 class="section-heading">4️⃣ OpenRouter API</h2>
+
+          <p>
+          We can use OpenRouter to use different models provided by an unified API. Several models are available: OpenAI, Anthropic, Google, Mistral, DeepSeek and many others.  
+          </p>
+          
+          <pre id="code-openrouter" class="line-numbers">
+            <code class="language-python">import OpenAI
+
+            message = [{"role": "user", "content": "Explain how LLMs work"},]
+            openrouter = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=openrouter_api_key)
+
+            response = openrouter.chat.completions.create(model="kwaipilot/kat-coder-pro:free", messages=message)
+            display(response.choices[0].message.content)</code>
+          </pre>
+          <h2 class="section-heading">5️⃣ LangChain</h2>
+
+          <p>
+          LangChain helps you build agents, tools, retrieval pipelines and chain sequences with minimal boilerplate.  
+          Very useful when you want multi-step reasoning or tool usage.
+          </p>
+          
+          <pre id="code-langchain-basic" class="line-numbers">
+            <div class="code-header"><span>langchain_basic.py</span></div>
+            <code class="language-python">from langchain_openai import ChatOpenAI
+            
+            message = [{"role": "user", "content": "Explain how LLMs work"},]
+            llm = ChatOpenAI(model="gpt-5-mini")
+
+            response = llm.invoke(message)
+            
+            display(Markdown(response.content))</code>
+          </pre><br>
+          <h3>🔧 Example: Agent with a Python Tool</h3>
+
+          <pre id="code-langchain-tool" class="line-numbers">
+            <code class="language-python">from langchain.agents import initialize_agent, Tool
+            from langchain.chat_models import ChatOpenAI
+            
+            def get_temperature(city: str):
+                return f"The temperature in {city} is 20ºC."
+            
+            tools = [
+                Tool(
+                    name="weather",
+                    func=get_temperature,
+                    description="Return temperature of a city."
+                )
+            ]
+            
+            llm = ChatOpenAI(model="gpt-4o")
+            
+            agent = initialize_agent(
+                tools=tools,
+                llm=llm,
+                agent="zero-shot-react-description"
+            )
+            
+            print(agent.run("What's the temperature in Copenhagen?"))</code>
+          </pre>
+          
+          <p><strong>Great for:</strong> multi-step reasoning, tool-enabled assistants, and structured agents.</p>
+
+          <h2 class="section-heading">6️⃣ LiteLLM</h2>
+
+          <p>
+          LiteLLM is a unified Python client for 100+ LLM providers (OpenAI, Anthropic, Groq, OpenRouter, Azure…).  
+          You use <code>completion()</code> or <code>chat.completion()</code> and change only the model string.
+          </p>
+          
+          <pre id="code-litellm-basic" class="line-numbers">
+            <code class="language-python">from litellm import completion
+
+            message = [{"role": "user", "content": "Explain how LLMs work"},]
+
+            response = completion(model="openai/gpt-4.1", messages=message)
+            reply = response.choices[0].message.content
+            display(Markdown(reply))</code>
+          </pre>
+
+          <p><em>Note:</em> We can also get extra information on tokens and costs.
+
+          <pre id="code-litellm-basic" class="line-numbers">
+          <code class="language-python">print(f"Input tokens: {response.usage.prompt_tokens}")
+          print(f"Output tokens: {response.usage.completion_tokens}")
+          print(f"Total tokens: {response.usage.total_tokens}")
+          print(f"Total cost: {response._hidden_params["response_cost"]*100:.4f} cents")</code>
+        </pre>
+
         </div>
       </div>
     </div>
