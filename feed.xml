@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Kike Bodí – LLM Engineering and AI Systems</title>
+    <link>https://kikebodi.com/</link>
+    <description>LLM Engineering, private RAG systems, AI agents, and CI optimization by Enrique (Kike) Bodí.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 23 Nov 2025 10:00:00 +0100</lastBuildDate>
+    <ttl>180</ttl>
+
+    <!-- New: Private RAG article -->
+    <item>
+      <title>Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <link>https://kikebodi.com/private-rag-vector-database.html</link>
+      <guid>https://kikebodi.com/private-rag-vector-database.html</guid>
+      <pubDate>Sun, 23 Nov 2025 09:00:00 +0100</pubDate>
+      <description>End-to-end tutorial on building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs, focused on enterprise-ready knowledge retrieval.</description>
+    </item>
+
+    <!-- LLM – Token optimization -->
+    <item>
+      <title>LLM Engineering | Token optimization</title>
+      <link>https://kikebodi.com/llm-engineering-token-optimization.html</link>
+      <guid>https://kikebodi.com/llm-engineering-token-optimization.html</guid>
+      <pubDate>Mon, 17 Nov 2025 09:00:00 +0100</pubDate>
+      <description>Practical patterns to reduce cost and latency in LLM applications: token optimization, caching strategies with LiteLLM, and thin system prompts for production systems.</description>
+    </item>
+
+    <!-- LLM – Local LLMs & APIs -->
+    <item>
+      <title>LLM Engineering | Running local LLMs and APIs</title>
+      <link>https://kikebodi.com/llm-engineering-basic-usage.html</link>
+      <guid>https://kikebodi.com/llm-engineering-basic-usage.html</guid>
+      <pubDate>Wed, 12 Nov 2025 09:00:00 +0100</pubDate>
+      <description>Hands-on notes for running local LLMs with Ollama and integrating OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM into multi-model AI workflows and agents.</description>
+    </item>
+
+    <!-- CI automation / AI for engineering workflows -->
+    <item>
+      <title>CI Automation for Engineering Teams</title>
+      <link>https://kikebodi.com/ci-automation.html</link>
+      <guid>https://kikebodi.com/ci-automation.html</guid>
+      <pubDate>Mon, 01 Sep 2025 09:00:00 +0200</pubDate>
+      <description>How to optimize CI pipelines with selective testing, Gradle plugins, and AI automation to cut build times and improve developer productivity.</description>
+    </item>
+
+    <!-- Other posts (older, still useful for context) -->
+    <item>
+      <title>Biohacking para preparar el examen de acceso a Mensa</title>
+      <link>https://kikebodi.com/biohacking_mensa.html</link>
+      <guid>https://kikebodi.com/biohacking_mensa.html</guid>
+      <pubDate>Sun, 11 Jun 2023 09:00:00 +0200</pubDate>
+      <description>Estrategias de biohacking, nutrición y hábitos para maximizar el rendimiento cognitivo antes de una prueba de razonamiento tipo Mensa.</description>
+    </item>
+
+    <item>
+      <title>Two-way Data Binding on Android with Kotlin</title>
+      <link>https://kikebodi.com/two-way-databinding-android.html</link>
+      <guid>https://kikebodi.com/two-way-databinding-android.html</guid>
+      <pubDate>Thu, 23 Apr 2020 09:00:00 +0200</pubDate>
+      <description>Tutorial on implementing two-way data binding in Android using Kotlin, Architecture Components, and clean MVVM patterns.</description>
+    </item>
+
+    <item>
+      <title>Viaje a Tromsø para ver la aurora boreal</title>
+      <link>https://kikebodi.com/viaje_tromso_aurora_boreal.html</link>
+      <guid>https://kikebodi.com/viaje_tromso_aurora_boreal.html</guid>
+      <pubDate>Wed, 06 Feb 2019 09:00:00 +0100</pubDate>
+      <description>Relato práctico de un viaje a Tromsø para ver la aurora boreal, con recomendaciones sobre vuelos, alojamiento y planificación.</description>
+    </item>
+
+  </channel>
+</rss>
