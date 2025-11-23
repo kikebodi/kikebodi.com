@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home: LLM-oriented persona + latest posts -->
+  <url>
+    <loc>https://kikebodi.com/</loc>
+    <lastmod>2025-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Private RAG + Vector DB (new post) -->
+  <url>
+    <loc>https://kikebodi.com/private-rag-vector-database.html</loc>
+    <lastmod>2025-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- LLM Engineering | Token optimization -->
+  <url>
+    <loc>https://kikebodi.com/llm-engineering-token-optimization.html</loc>
+    <lastmod>2025-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- LLM Engineering | Running local LLMs and APIs -->
+  <url>
+    <loc>https://kikebodi.com/llm-engineering-basic-usage.html</loc>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  
+
+  <!-- CI Automation for engineering workflows (strong AI relevance) -->
+  <url>
+    <loc>https://kikebodi.com/ci-automation.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Portfolio: should highlight LLM / agents projects -->
+  <url>
+    <loc>https://kikebodi.com/portfolio.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About: make sure job title = AI / LLM Engineer -->
+  <url>
+    <loc>https://kikebodi.com/about.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact: recruiters & leads landing -->
+  <url>
+    <loc>https://kikebodi.com/contact.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- OTHER ARTICLES (lower but still indexed) -->
+
+  <url>
+    <loc>https://kikebodi.com/biohacking_mensa.html</loc>
+    <lastmod>2023-06-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://kikebodi.com/two-way-databinding-android.html</loc>
+    <lastmod>2020-04-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://kikebodi.com/viaje_tromso_aurora_boreal.html</loc>
+    <lastmod>2019-02-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://kikebodi.com/desert-leaves.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
