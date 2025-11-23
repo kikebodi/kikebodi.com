@@ -5,7 +5,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>LLM Engineering | Running local LLMs and APIs</title>
+  <title>LLM Engineering | Running local LLMs and APIs - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="LLM Engineering | Running local LLMs and APIs" />
+<meta property="og:description" content="Course-style notes for running local LLMs with Ollama and integrating OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM into your AI workflows and agents." />
+<meta property="og:url" content="https://kikebodi.com/llm-engineering-basic-usage.html" />
+<meta property="og:image" content="https://kikebodi.com/img/llm_local_apis.png" />
+<meta property="og:site_name" content="Kike Bodi — LLM Engineering & AI Systems" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="LLM Engineering | Running local LLMs and APIs" />
+<meta name="twitter:description" content="Run local LLMs with Ollama and wire them to OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM with practical Python snippets." />
+<meta name="twitter:image" content="https://kikebodi.com/img/llm_local_apis.png" />
+
+
 
   <!-- Bootstrap + Clean Blog -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -89,6 +105,58 @@
       background-color: rgba(0, 0, 0, 0.45);
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kikebodi.com/llm-engineering-basic-usage.html"
+  },
+  "headline": "LLM Engineering | Running local LLMs and APIs",
+  "description": "Hands-on notes and code snippets for running local LLMs with Ollama and integrating OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM into production-ready AI systems.",
+  "keywords": [
+    "LLM Engineering",
+    "Local LLMs",
+    "Ollama",
+    "OpenAI API",
+    "Anthropic",
+    "OpenRouter",
+    "LangChain",
+    "LiteLLM",
+    "AI Agents",
+    "LLM APIs",
+    "Multi-model orchestration",
+    "Production LLM systems"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Enrique Bodí",
+    "url": "https://kikebodi.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Enrique Bodí — LLM Engineering & AI Systems",
+    "url": "https://kikebodi.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kikebodi.com/img/profile.jpg"
+    }
+  },
+  "datePublished": "2025-11-12",
+  "dateModified": "2025-11-12",
+  "image": "https://kikebodi.com/img/llm_local_apis.png",
+  "articleSection": "LLM Engineering",
+  "learningResourceType": "Tutorial",
+  "proficiencyLevel": "Expert",
+  "about": [
+    { "@type": "Thing", "name": "LLM Engineering" },
+    { "@type": "Thing", "name": "Local LLMs" },
+    { "@type": "Thing", "name": "AI Agents" },
+    { "@type": "Thing", "name": "LLM Infrastructure" }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -297,6 +365,23 @@
           print(f"Total tokens: {response.usage.total_tokens}")
           print(f"Total cost: {response._hidden_params["response_cost"]*100:.4f} cents")</code>
         </pre>
+
+         <hr />
+<div class="container my-4">
+  <h3>More LLM Engineering articles</h3>
+  <ul>
+    <li>
+      <a href="https://kikebodi.com/private-rag-vector-database.html">
+        Building a Private RAG System with LangChain, Chroma, and Local LLMs
+      </a> – private, enterprise-ready RAG and vector database pipeline.
+    </li>
+    <li>
+      <a href="https://kikebodi.com/llm-engineering-token-optimization.html">
+        LLM Engineering | Token optimization
+      </a> – caching, thin system prompts, and cost-optimized production usage.
+    </li>
+  </ul>
+</div>
 
         </div>
       </div>
