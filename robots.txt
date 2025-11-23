@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kikebodi.com/sitemap.xml
