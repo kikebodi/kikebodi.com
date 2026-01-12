@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>Building a Private RAG System with Ollama, LangChain and Chroma - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
+  <title>RAG Series | Part 2: Create the vector retriever - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
 
     <!-- Open Graph -->
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Building a Private RAG System with LangChain, Chroma, and Local LLMs" />
-<meta property="og:description" content="End-to-end guide to building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs. Includes embeddings, chunking, vector search, and evaluation." />
-<meta property="og:url" content="https://kikebodi.com/private-rag-vector-database.html" />
+<meta property="og:title" content="RAG Series | Part 2: Create the vector retriever" />
+<meta property="og:description" content="Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation." />
+<meta property="og:url" content="https://kikebodi.com/private-rag-retriever.html" />
 <meta property="og:image" content="https://kikebodi.com/img/rag_diagram.png" />
 <meta property="og:site_name" content="Kike Bodi — LLM Engineering & AI Systems" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Private RAG with LangChain, Chroma, and Local LLMs" />
-<meta name="twitter:description" content="Hands-on RAG tutorial: private vector database with Chroma, LangChain retriever pipeline, and local LLMs for enterprise-ready AI search." />
+<meta name="twitter:title" content="RAG Series | Part 2: Create the vector retriever" />
+<meta name="twitter:description" content="Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings and connect your retriever pipeline." />
 <meta name="twitter:image" content="https://kikebodi.com/img/rag_diagram.png" />
 
   <!-- Bootstrap + Clean Blog -->
@@ -109,10 +109,10 @@
   "@type": "TechArticle",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://kikebodi.com/private-rag-vector-database.html"
+    "@id": "https://kikebodi.com/private-rag-retriever.html"
   },
-  "headline": "Building a Private RAG System with LangChain, Chroma, and Local LLMs",
-  "description": "A practical, end-to-end guide to building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and open-source LLMs. Covers embeddings, chunking, vector search, pipelines, and productionization.",
+  "headline": "RAG Series | Part 2: Create the vector retriever",
+  "description": "How to configure the vector retriever for a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and open-source LLMs. Includes embeddings setup, retriever creation, and production notes.",
   "keywords": [
     "RAG",
     "Retrieval-Augmented Generation",
@@ -126,6 +126,7 @@
     "Private LLMs",
     "Enterprise RAG",
     "Token Optimization",
+    "Vector Retrievers",
     "Document Indexing",
     "AI Workflows",
     "Multi-model pipelines"
@@ -144,8 +145,8 @@
       "url": "https://kikebodi.com/img/profile.jpg"
     }
   },
-  "datePublished": "2025-11-23",
-  "dateModified": "2025-11-23",
+  "datePublished": "2025-12-10",
+  "dateModified": "2026-01-13",
   "image": "https://kikebodi.com/img/rag_diagram.png",
   "articleSection": "LLM Engineering",
   "learningResourceType": "Tutorial",
@@ -249,7 +250,7 @@ retriever = vectorstore.as_retriever()</code></pre>
          <p>
           Now, you are ready to implement the RAG in the next section: <a href="./private-rag-implementation.html">
         Part 4: RAG implementation
-      </a> (available soon)
+      </a> 
       </div>
    <hr />
 <div class="container my-4">

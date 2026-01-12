@@ -9,7 +9,7 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Private RAG + RAG retriever (new post) -->
+  <!-- Private RAG implementation (new post) -->
   <url>
     <loc>https://kikebodi.com/private-rag-implementation.html</loc>
     <lastmod>2026-01-13</lastmod>
@@ -25,7 +25,7 @@
     <priority>0.95</priority>
   </url>
 
-  <!-- Private RAG + Vector DB -->
+  <!-- Private RAG + Vector DB (Part 1) -->
   <url>
     <loc>https://kikebodi.com/private-rag-vector-database.html</loc>
     <lastmod>2025-11-23</lastmod>

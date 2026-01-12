@@ -8,22 +8,22 @@
     <lastBuildDate>Tue, 13 Jan 2026 10:00:00 +0100</lastBuildDate>
     <ttl>180</ttl>
 
-    <!-- Private RAG article - RAG Implementation -->
+    <!-- RAG Series Part 3 (Implementation) -->
     <item>
-      <title>Creating Vector Retrievers - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <title>RAG Series | Part 3: RAG Implementation</title>
       <link>https://kikebodi.com/private-rag-implementation.html</link>
       <guid>https://kikebodi.com/private-rag-implementation.html</guid>
       <pubDate>Tue, 13 Jan 2026 09:00:00 +0100</pubDate>
-      <description>End-to-end tutorial on building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs, focused on enterprise-ready knowledge retrieval.</description>
+      <description>Implement your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation.</description>
     </item>
 
-    <!-- Private RAG article - Create Vector Retriever -->
+    <!-- RAG Series Part 2 (Retriever) -->
     <item>
-      <title>Creating Vector Retrievers - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <title>RAG Series | Part 2: Create the vector retriever</title>
       <link>https://kikebodi.com/private-rag-retriever.html</link>
       <guid>https://kikebodi.com/private-rag-retriever.html</guid>
       <pubDate>Wed, 10 Dec 2025 09:00:00 +0100</pubDate>
-      <description>End-to-end tutorial on building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs, focused on enterprise-ready knowledge retrieval.</description>
+      <description>Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation.</description>
     </item>
 
     <!-- Private RAG article - Populate Vector Database -->
