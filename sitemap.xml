@@ -4,33 +4,49 @@
   <!-- Home: LLM-oriented persona + latest posts -->
   <url>
     <loc>https://kikebodi.com/</loc>
-    <lastmod>2025-11-23</lastmod>
+    <lastmod>2026-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Private RAG + Vector DB (new post) -->
+  <!-- Private RAG + RAG retriever (new post) -->
+  <url>
+    <loc>https://kikebodi.com/private-rag-implementation.html</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Private RAG + RAG retriever -->
+  <url>
+    <loc>https://kikebodi.com/private-rag-retriever.html</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Private RAG + Vector DB -->
   <url>
     <loc>https://kikebodi.com/private-rag-vector-database.html</loc>
     <lastmod>2025-11-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>0.95</priority>
   </url>
 
   <!-- LLM Engineering | Token optimization -->
   <url>
     <loc>https://kikebodi.com/llm-engineering-token-optimization.html</loc>
     <lastmod>2025-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
   </url>
 
   <!-- LLM Engineering | Running local LLMs and APIs -->
   <url>
     <loc>https://kikebodi.com/llm-engineering-basic-usage.html</loc>
     <lastmod>2025-11-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
   </url>
 
   

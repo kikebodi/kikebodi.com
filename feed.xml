@@ -5,12 +5,30 @@
     <link>https://kikebodi.com/</link>
     <description>LLM Engineering, private RAG systems, AI agents, and CI optimization by Enrique (Kike) Bodí.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Nov 2025 10:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 13 Jan 2026 10:00:00 +0100</lastBuildDate>
     <ttl>180</ttl>
 
-    <!-- New: Private RAG article -->
+    <!-- Private RAG article - RAG Implementation -->
     <item>
-      <title>Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <title>Creating Vector Retrievers - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <link>https://kikebodi.com/private-rag-implementation.html</link>
+      <guid>https://kikebodi.com/private-rag-implementation.html</guid>
+      <pubDate>Tue, 13 Jan 2026 09:00:00 +0100</pubDate>
+      <description>End-to-end tutorial on building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs, focused on enterprise-ready knowledge retrieval.</description>
+    </item>
+
+    <!-- Private RAG article - Create Vector Retriever -->
+    <item>
+      <title>Creating Vector Retrievers - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <link>https://kikebodi.com/private-rag-retriever.html</link>
+      <guid>https://kikebodi.com/private-rag-retriever.html</guid>
+      <pubDate>Wed, 10 Dec 2025 09:00:00 +0100</pubDate>
+      <description>End-to-end tutorial on building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs, focused on enterprise-ready knowledge retrieval.</description>
+    </item>
+
+    <!-- Private RAG article - Populate Vector Database -->
+    <item>
+      <title>Populate Vector Database - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
       <link>https://kikebodi.com/private-rag-vector-database.html</link>
       <guid>https://kikebodi.com/private-rag-vector-database.html</guid>
       <pubDate>Sun, 23 Nov 2025 09:00:00 +0100</pubDate>
