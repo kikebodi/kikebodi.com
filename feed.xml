@@ -5,10 +5,19 @@
     <link>https://kikebodi.com/</link>
     <description>LLM Engineering, private RAG systems, AI agents, and CI optimization by Enrique (Kike) Bodí.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Dec 2025 10:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 13 Jan 2026 10:00:00 +0100</lastBuildDate>
     <ttl>180</ttl>
 
-    <!-- New: RAG Series Part 2 (Retriever) -->
+    <!-- RAG Series Part 3 (Implementation) -->
+    <item>
+      <title>RAG Series | Part 3: RAG Implementation</title>
+      <link>https://kikebodi.com/private-rag-implementation.html</link>
+      <guid>https://kikebodi.com/private-rag-implementation.html</guid>
+      <pubDate>Tue, 13 Jan 2026 09:00:00 +0100</pubDate>
+      <description>Implement your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation.</description>
+    </item>
+
+    <!-- RAG Series Part 2 (Retriever) -->
     <item>
       <title>RAG Series | Part 2: Create the vector retriever</title>
       <link>https://kikebodi.com/private-rag-retriever.html</link>
@@ -17,9 +26,9 @@
       <description>Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation.</description>
     </item>
 
-    <!-- Private RAG article -->
+    <!-- Private RAG article - Populate Vector Database -->
     <item>
-      <title>Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
+      <title>Populate Vector Database - Building a Private RAG System with LangChain, Chroma, and Local LLMs</title>
       <link>https://kikebodi.com/private-rag-vector-database.html</link>
       <guid>https://kikebodi.com/private-rag-vector-database.html</guid>
       <pubDate>Sun, 23 Nov 2025 09:00:00 +0100</pubDate>

@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>RAG Series | Part 2: Create the vector retriever - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
+  <title>Building a Private RAG System with Ollama, LangChain and Chroma - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
 
     <!-- Open Graph -->
 <meta property="og:type" content="article" />
-<meta property="og:title" content="RAG Series | Part 2: Create the vector retriever" />
-<meta property="og:description" content="Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings, connect the retriever, and prepare for downstream chat and evaluation." />
-<meta property="og:url" content="https://kikebodi.com/private-rag-retriever.html" />
+<meta property="og:title" content="Building a Private RAG System with LangChain, Chroma, and Local LLMs" />
+<meta property="og:description" content="End-to-end guide to building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and local/open-source LLMs. Includes embeddings, chunking, vector search, and evaluation." />
+<meta property="og:url" content="https://kikebodi.com/private-rag-vector-database.html" />
 <meta property="og:image" content="https://kikebodi.com/img/rag_diagram.png" />
 <meta property="og:site_name" content="Kike Bodi — LLM Engineering & AI Systems" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="RAG Series | Part 2: Create the vector retriever" />
-<meta name="twitter:description" content="Build the vector retriever for your private RAG with LangChain, Chroma, and local LLMs. Configure embeddings and connect your retriever pipeline." />
+<meta name="twitter:title" content="Private RAG with LangChain, Chroma, and Local LLMs" />
+<meta name="twitter:description" content="Hands-on RAG tutorial: private vector database with Chroma, LangChain retriever pipeline, and local LLMs for enterprise-ready AI search." />
 <meta name="twitter:image" content="https://kikebodi.com/img/rag_diagram.png" />
 
   <!-- Bootstrap + Clean Blog -->
@@ -109,10 +109,10 @@
   "@type": "TechArticle",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://kikebodi.com/private-rag-retriever.html"
+    "@id": "https://kikebodi.com/private-rag-implementation.html"
   },
-  "headline": "RAG Series | Part 2: Create the vector retriever",
-  "description": "How to configure the vector retriever for a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and open-source LLMs. Includes embeddings setup, retriever creation, and production notes.",
+  "headline": "Building a Private RAG System with LangChain, Chroma, and Local LLMs",
+  "description": "A practical, end-to-end guide to building a private Retrieval-Augmented Generation (RAG) system using LangChain, Chroma, and open-source LLMs. Covers embeddings, chunking, vector search, pipelines, and productionization.",
   "keywords": [
     "RAG",
     "Retrieval-Augmented Generation",
@@ -126,7 +126,6 @@
     "Private LLMs",
     "Enterprise RAG",
     "Token Optimization",
-    "Vector Retrievers",
     "Document Indexing",
     "AI Workflows",
     "Multi-model pipelines"
@@ -145,8 +144,8 @@
       "url": "https://kikebodi.com/img/profile.jpg"
     }
   },
-  "datePublished": "2025-12-10",
-  "dateModified": "2026-01-13",
+  "datePublished": "2025-11-23",
+  "dateModified": "2025-11-23",
   "image": "https://kikebodi.com/img/rag_diagram.png",
   "articleSection": "LLM Engineering",
   "learningResourceType": "Tutorial",
@@ -208,8 +207,8 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-heading">
           <h1>Building a Private RAG System with Ollama, LangChain and Chroma</h1>
-          <h2 class="subheading">Part 3: Create the vector retriever</h2>
-          <span class="meta">Posted by <a href="#">Kike Bodí</a> on November 2025</span>
+          <h2 class="subheading">Part 4: RAG implementation</h2>
+          <span class="meta">Posted by <a href="#">Kike Bodí</a> on January 2026</span>
         </div>
       </div>
     </div>
@@ -230,27 +229,78 @@
           <li>Performance improvements</li>
         </ol>
 
-        <div id="rag-retriever">
-        <h2 class="section-heading">3. Retriever</h2>
+        <div id="rag-implementation">
+        <h2 class="section-heading">4. RAG implementation</h2>
 
         <p>
-          From now on, we have our vector database setup with the Embedding LLM <code>all-MiniLM-L6-v2</code>. Now we are going to create a Retriever. An LLM that search our 384-dimensional map, an retrieves the "chunks" that are near the keyword to search.
+          In addition to the Retriever, we will need our Auto-regresive (conversational) LLM:
         </p>
 
-        <p>Note: It is very important to use the same retriever from the model that generate the embeddings, otherwise it won't be able to find the information.</p>
-
-        <pre class="line-numbers"><code class="language-python">embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-vectorstore = Chroma(persist_directory=DB_NAME, embedding_function=embeddings)
-retriever = vectorstore.as_retriever()</code></pre>
+        <pre class="line-numbers"><code class="language-python">llm = ChatOpenAI(temperature=0, model_name=MODEL)</code></pre>
 
         <p>
-          Nice work! With this short step, we’ve covered <strong>about 35%</strong>of our private RAG system.
+        	Together with the Retriever we defined in the previous post, we have everything we need to build the RAG:
+        </p>
+
+        <pre class="line-numbers"><code class="language-python">SYSTEM_PROMPT_TEMPLATE = """
+You are a knowledgeable, friendly assistant representing Desert Leaves.
+You are chatting internally with a technician from Desert Leaves.
+If relevant, use the given context to answer any question.
+If you don't know the answer, say so.
+Context:
+{context}
+"""
+
+def fetch_context(question: str) -> list[Document]:
+    """
+    Retrieve relevant context documents for a question.
+    """
+    return retriever.invoke(question, k=RETRIEVAL_K)
+
+
+def combined_question(question: str, history: list[dict] = []) -> str:
+    """
+    Combine all the user's messages into a single string.
+    """
+    prior = "\n".join(m["content"] for m in history if m["role"] == "user")
+    return prior + "\n" + question
+
+
+def answer_question(question: str, history: list[dict] = []) -> tuple[str, list[Document]]:
+    """
+    Answer the given question with RAG; return the answer and the context documents.
+    """
+    combined = combined_question(question, history)
+    docs = fetch_context(combined)
+    context = "\n\n".join(doc.page_content for doc in docs)
+    system_prompt = SYSTEM_PROMPT.format(context=context)
+    messages = [SystemMessage(content=system_prompt)]
+    messages.extend(convert_to_messages(history))
+    messages.append(HumanMessage(content=question))
+    response = llm.invoke(messages)
+    return response.content, docs</code></pre>
+
+		</div>
+
+		<div id="rag-ui">
+        <h2 class="section-heading">5. UI with Gradio</h2>
+
+        <pre class="line-numbers"><code class="language-python">gr.ChatInterface(answer_question).launch()</code></pre>
+
+
+        <p>
+        	As simple as that
+        </p>
+
+			
+        <p>
+          Nice work! Now we have our own private RAG system.
         </p>
 
          <p>
-          Now, you are ready to implement the RAG in the next section: <a href="./private-rag-implementation.html">
-        Part 4: RAG implementation
-      </a> 
+          Now a little tune-up for production in the next sections: <a href="#">
+        Part 6: Evaluation
+      </a> (available soon)
       </div>
    <hr />
 <div class="container my-4">
