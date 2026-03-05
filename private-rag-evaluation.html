@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="RAG evaluation walkthrough: test set design, retrieval metrics, and LLM-as-a-judge answer scoring.">
+  <meta name="author" content="Kike Bodí">
+
+  <title>Building a Private RAG System with Ollama, LangChain and Chroma - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building a Private RAG System with LangChain, Chroma, and Local LLMs" />
+  <meta property="og:description" content="Part 5 of the Private RAG series: evaluate retrieval and answer quality with clear baseline metrics." />
+  <meta property="og:url" content="https://kikebodi.com/private-rag-evaluation.html" />
+  <meta property="og:image" content="https://kikebodi.com/img/rag-vector-database-landscape.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building a Private RAG System with LangChain, Chroma, and Local LLMs",
+  "description": "Part 5 of the Private RAG series: evaluate retrieval and answer quality with clear baseline metrics.",
+  "image": "https://kikebodi.com/img/rag-vector-database-landscape.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kike Bodí"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kike Bodí",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kikebodi.com/img/about-bg.jpg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kikebodi.com/private-rag-evaluation.html"
+  }
+}
+</script>
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href="css/clean-blog.min.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+  <style>
+    pre[class*="language-"] {
+      border-radius: 10px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 1.5rem 0;
+    }
+
+    code[class*="language-"] {
+      white-space: pre;
+      word-break: normal;
+      overflow-wrap: normal;
+      tab-size: 4;
+    }
+
+    @media (max-width: 768px) {
+      pre[class*="language-"] {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Kike Bodí</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portfolio.html">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead" style="background-image: url('img/rag-vector-database-landscape.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Building a Private RAG System with Ollama, LangChain and Chroma</h1>
+            <h2 class="subheading">Part 5: Evaluation</h2>
+            <span class="meta">Posted by <a href="#">Kike Bodí</a> on January 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <h2 class="section-heading">Series Index</h2>
+          <ol>
+            <li><a href="./private-rag-vector-database.html#rag-prerequisites">Prerequisites</a></li>
+            <li><a href="./private-rag-vector-database.html#rag-populate-db">Populate the Vector Database</a></li>
+            <li><a href="./private-rag-retriever.html#rag-retriever">Vector Retriever</a></li>
+            <li><a href="./private-rag-implementation.html#rag-implementation">RAG Implementation</a></li>
+            <li><a href="./private-rag-implementation.html#rag-ui">Chat UI</a></li>
+            <li><a href="./private-rag-evaluation.html#rag-evaluation">Evaluation</a></li>
+            <li>Performance improvements</li>
+          </ol>
+
+          <div id="rag-evaluation">
+            <h2 class="section-heading">Part 5: Evaluation</h2>
+
+            <h3>5.1 Curate a Test Set</h3>
+            <p>
+              Generate a test set in JSONL (a list of JSON formatted questions). Check the synthetic data generator post
+              (not available yet).
+            </p>
+            <p>We will use a Pydantic Model to define the structure of each test question:</p>
+
+            <pre class="line-numbers"><code class="language-python">class TestQuestion(BaseModel):
+    """A test question with expected keywords and reference answer."""
+
+    question: str = Field(description="The question to ask the RAG system")
+    keywords: list[str] = Field(description="Keywords that must appear in retrieved context")
+    reference_answer: str = Field(description="The reference answer for this question")
+    category: str = Field(description="Question category (e.g., direct_fact, spanning, temporal)")</code></pre>
+
+            <h3>5.2 Evaluate Retrieval</h3>
+            <p>
+              In this step we will evaluate the Vector Store Retriever (from the vector database) and check how good it
+              is picking relevant chunks.
+            </p>
+
+            <p>We will evaluate this on several metrics:</p>
+            <ul>
+              <li>Calculate MRR - Mean Reciprocal Rank</li>
+              <li>Calculate nDCG - Normalized Discounted Cumulative Gains)</li>
+              <li>Calculate keyword coverage - Percentage</li>
+            </ul>
+
+            <p>And here is the code:</p>
+
+            <pre class="line-numbers"><code class="language-python">def calculate_mrr(keyword: str, retrieved_docs: list) -> float:
+    """Calculate reciprocal rank for a single keyword (case-insensitive)."""
+    keyword_lower = keyword.lower()
+    for rank, doc in enumerate(retrieved_docs, start=1):
+        if keyword_lower in doc.page_content.lower():
+            return 1.0 / rank
+    return 0.0</code></pre>
+
+            <pre class="line-numbers"><code class="language-python">def calculate_dcg(relevances: list[int], k: int) -> float:
+    """Calculate Discounted Cumulative Gain."""
+    dcg = 0.0
+    for i in range(min(k, len(relevances))):
+        dcg += relevances[i] / math.log2(i + 2)  # i+2 because rank starts at 1
+    return dcg</code></pre>
+
+            <pre class="line-numbers"><code class="language-python">def calculate_keyword_coverage(mrr_scores: List[float], keywords: List[str]):
+    """Return keyword coverage percentage."""
+    keywords_found = sum(1 for score in mrr_scores if score > 0)
+    total_keywords = len(keywords)
+    if total_keywords == 0:
+        return 0.0
+    return (keywords_found / total_keywords) * 100</code></pre>
+
+            <p>Putting all together will look like this:</p>
+
+            <pre class="line-numbers"><code class="language-python"># First create the model for the answer format
+class RetrievalEval(BaseModel):
+    """Evaluation metrics for retrieval performance."""
+
+    mrr: float = Field(description="Mean Reciprocal Rank - average across all keywords")
+    ndcg: float = Field(description="Normalized Discounted Cumulative Gain (binary relevance)")
+    keywords_found: int = Field(description="Number of keywords found in top-k results")
+    total_keywords: int = Field(description="Total number of keywords to find")
+    keyword_coverage: float = Field(description="Percentage of keywords found")
+
+
+def evaluate_retrieval(test: TestQuestion, k: int = 10) -> RetrievalEval:
+    """
+    Evaluate retrieval performance for a test question.
+
+    Args:
+        test: TestQuestion object containing question and keywords
+        k: Number of top documents to retrieve (default 10)
+
+    Returns:
+        RetrievalEval object with MRR, nDCG, and keyword coverage metrics
+    """
+    # Retrieve documents using shared answer module
+    retrieved_docs = fetch_context(test.question)
+
+    # Calculate MRR (average across all keywords)
+    mrr_scores = [calculate_mrr(keyword, retrieved_docs) for keyword in test.keywords]
+    avg_mrr = sum(mrr_scores) / len(mrr_scores) if mrr_scores else 0.0
+
+    # Calculate nDCG (average across all keywords)
+    ndcg_scores = [calculate_ndcg(keyword, retrieved_docs, k) for keyword in test.keywords]
+    avg_ndcg = sum(ndcg_scores) / len(ndcg_scores) if ndcg_scores else 0.0
+
+    # Calculate keyword coverage
+    keyword_coverage = calculate_keyword_coverage(mrr_scores, test.keywords)
+
+    return RetrievalEval(
+        mrr=avg_mrr,
+        ndcg=avg_ndcg,
+        keywords_found=keywords_found,
+        total_keywords=total_keywords,
+        keyword_coverage=keyword_coverage,
+    )</code></pre>
+
+            <h3>5.3 Evaluate answer</h3>
+            <p>
+              We will need the help of an LLM here. So we will use LLM-as-a-judge. We will evaluate the answers on the
+              following topics:
+            </p>
+
+            <ul>
+              <li>Accuracy</li>
+              <li>Completeness</li>
+              <li>Relevance</li>
+            </ul>
+
+            <p>Same as the Retrieval Answer. We will create a Pydantic model:</p>
+
+            <pre class="line-numbers"><code class="language-python">class AnswerEval(BaseModel):
+    """LLM-as-a-judge evaluation of answer quality."""
+
+    feedback: str = Field(
+        description="Concise feedback on the answer quality, comparing it to the reference answer and evaluating based on the retrieved context"
+    )
+    accuracy: float = Field(
+        description="How factually correct is the answer compared to the reference answer? 1 (wrong. any wrong answer must score 1) to 5 (ideal - perfectly accurate). An acceptable answer would score 3."
+    )
+    completeness: float = Field(
+        description="How complete is the answer in addressing all aspects of the question? 1 (very poor - missing key information) to 5 (ideal - all the information from the reference answer is provided completely). Only answer 5 if ALL information from the reference answer is included."
+    )
+    relevance: float = Field(
+        description="How relevant is the answer to the specific question asked? 1 (very poor - off-topic) to 5 (ideal - directly addresses question and gives no additional information). Only answer 5 if the answer is completely relevant to the question and gives no additional information."
+    )</code></pre>
+
+            <p>Answer evaluation method:</p>
+
+            <pre class="line-numbers"><code class="language-python">def evaluate_answer(test: TestQuestion) -> tuple[AnswerEval, str, list]:
+    """
+    Evaluate answer quality using LLM-as-a-judge (async).
+
+    Args:
+        test: TestQuestion object containing question and reference answer
+
+    Returns:
+        Tuple of (AnswerEval object, generated_answer string, retrieved_docs list)
+    """
+    # Get RAG response using shared answer module
+    generated_answer, retrieved_docs = answer_question(test.question)
+
+    # LLM judge prompt
+    judge_messages = [
+        {
+            "role": "system",
+            "content": "You are an expert evaluator assessing the quality of answers. Evaluate the generated answer by comparing it to the reference answer. Only give 5/5 scores for perfect answers.",
+        },
+        {
+            "role": "user",
+            "content": f"""Question:
+                        {test.question}
+
+                        Generated Answer:
+                        {generated_answer}
+
+                        Reference Answer:
+                        {test.reference_answer}
+
+                        Please evaluate the generated answer on three dimensions:
+                        1. Accuracy: How factually correct is it compared to the reference answer? Only give 5/5 scores for perfect answers.
+                        2. Completeness: How thoroughly does it address all aspects of the question, covering all the information from the reference answer?
+                        3. Relevance: How well does it directly answer the specific question asked, giving no additional information?
+
+                        Provide detailed feedback and scores from 1 (very poor) to 5 (ideal) for each dimension. If the answer is wrong, then the accuracy score must be 1.""",
+        },
+    ]
+
+    # Call LLM judge with structured outputs (async)
+    judge_response = completion(model=MODEL, messages=judge_messages, response_format=AnswerEval)
+
+    answer_eval = AnswerEval.model_validate_json(judge_response.choices[0].message.content)
+
+    return answer_eval, generated_answer, retrieved_docs</code></pre>
+
+            <p>
+              Done. Once we have reached this point, we have a baseline to beat. We can improve our numbers by
+              experimenting with other chunk sizes or other text splitters
+              (<a href="https://api.python.langchain.com/en/latest/text_splitters/index.html">https://api.python.langchain.com/en/latest/text_splitters/index.html</a>).
+              Also, trying other embedding models such as OpenAI’s <code>text-embedding-3-large</code>.
+            </p>
+
+            <p>Here is the baseline:</p>
+            <ul>
+              <li>MRR: <strong>0.76</strong></li>
+              <li>nDCG: <strong>0.81</strong></li>
+              <li>Keyword coverage: <strong>88%</strong></li>
+              <li>Accuracy: <strong>3.8/5</strong></li>
+              <li>Completeness: <strong>3.5/5</strong></li>
+              <li>Relevance: <strong>4.2/5</strong></li>
+            </ul>
+
+            <h3>5.4 Optimize</h3>
+            <p>
+              Next, we will tune chunking strategies, retriever settings, and embedding models to push these baseline
+              numbers up.
+            </p>
+          </div>
+
+          <hr />
+          <div class="container my-4">
+            <h3>More LLM Engineering articles</h3>
+            <ul>
+              <li>
+                <a href="https://kikebodi.com/llm-engineering-token-optimization.html">
+                  LLM Engineering | Token optimization
+                </a> – caching, thin system prompts, and cost-optimized production usage.
+              </li>
+              <li>
+                <a href="https://kikebodi.com/llm-engineering-basic-usage.html">
+                  LLM Engineering | Running local LLMs and APIs
+                </a> – Ollama, OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/clean-blog.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</body>
+
+</html>
