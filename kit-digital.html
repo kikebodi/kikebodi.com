@@ -6,8 +6,11 @@
   <title>Kit Digital – Soluciones de digitalización para empresas | Kike Bodi</title>
   <meta name="description" content="Soluciones Kit Digital en Valencia: inteligencia de subvenciones con IA y automatización de procesos. Agente Digitalizador oficial. Financiado por Next Generation EU.">
   <meta name="robots" content="index, follow">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">
+
   <style>
     :root {
       --text: #212529;
@@ -17,16 +20,8 @@
       --brand: #0085a1;
       --brand-dark: #00657a;
       --white: #fff;
-      --shadow: 0 12px 28px rgba(33, 37, 41, 0.08);
+      --shadow: 0 12px 28px rgba(33, 37, 41, .08);
       --radius: 10px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -35,114 +30,102 @@
       color: var(--text);
       line-height: 1.7;
       background: var(--white);
+      padding-top: 72px;
     }
 
-    h1, h2, h3, h4 {
+    h1, h2, h3 {
       font-family: 'Lora', Georgia, serif;
       font-weight: 700;
-      line-height: 1.25;
-      margin: 0 0 0.75rem;
       color: #111;
+      line-height: 1.25;
     }
 
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
+    p { margin: 0 0 1rem; }
+
+    #mainNav {
+      background: #fff;
+      border-bottom: 1px solid #eceff1;
+      box-shadow: 0 2px 8px rgba(33, 37, 41, .05);
     }
 
-    h2 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      margin-bottom: 1rem;
+    #mainNav .navbar-brand,
+    #mainNav .nav-link {
+      font-weight: 800;
+      letter-spacing: .04em;
+      font-size: .78rem;
+      text-transform: uppercase;
+      color: #212529;
     }
 
-    h3 {
-      font-size: 1.3rem;
-    }
-
-    p {
-      margin: 0 0 1rem;
-    }
-
-    .container {
-      width: min(1080px, 92vw);
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 4.5rem 0;
-      border-top: 1px solid var(--line);
-    }
-
-    .section:first-of-type {
-      border-top: 0;
+    #mainNav .nav-link.active,
+    #mainNav .nav-link:hover {
+      color: var(--brand);
     }
 
     .hero {
-      padding: 7rem 0 4.5rem;
-      background: linear-gradient(to bottom, rgba(248, 249, 250, 0.95), rgba(255, 255, 255, 1));
+      padding: 5rem 0 3.4rem;
+      background: linear-gradient(to bottom, #f8f9fa, #fff);
     }
 
-    .hero p {
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); }
+
+    .hero .subtitle {
       color: #343a40;
-      max-width: 760px;
       font-size: 1.1rem;
+      max-width: 760px;
     }
 
-    .btn {
+    .btn-brand {
       display: inline-block;
-      margin-top: 0.8rem;
-      padding: 0.85rem 1.4rem;
+      margin-top: .9rem;
+      padding: .82rem 1.4rem;
       border-radius: 6px;
+      border: 0;
       background: var(--brand);
-      color: var(--white);
+      color: #fff;
       text-decoration: none;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      transition: transform .15s ease, background .15s ease;
     }
 
-    .btn:hover,
-    .btn:focus {
-      background: var(--brand-dark);
-      transform: translateY(-1px);
-    }
+    .btn-brand:hover { background: var(--brand-dark); color: #fff; text-decoration: none; }
 
     .logo-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
       margin-top: 2rem;
     }
 
-    .logo-placeholder {
-      min-height: 120px;
-      border: 2px dashed #adb5bd;
+    .logo-card {
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 0.3rem;
-      background: var(--bg-soft);
-      color: #495057;
-      text-align: center;
+      background: #fff;
+      box-shadow: var(--shadow);
       padding: 1rem;
-      font-size: 0.98rem;
+      text-align: center;
     }
 
-    .logo-placeholder strong {
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
+    .logo-card img {
+      max-width: 100%;
+      height: 70px;
+      object-fit: contain;
     }
 
-    .hint {
+    .logo-hint {
+      margin-top: .5rem;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: .85rem;
+    }
+
+    .section {
+      padding: 4.2rem 0;
+      border-top: 1px solid var(--line);
     }
 
     .lead {
-      font-size: 1.08rem;
+      max-width: 920px;
       color: #343a40;
-      max-width: 900px;
+      font-size: 1.05rem;
     }
 
     .cards {
@@ -152,120 +135,118 @@
       margin-top: 1.5rem;
     }
 
-    .card {
-      background: var(--white);
+    .card-solution {
       border: 1px solid #e6e9ec;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 1.4rem;
+      background: #fff;
     }
 
     .tag {
       display: inline-block;
-      padding: 0.22rem 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .03em;
+      margin-bottom: .8rem;
       border-radius: 999px;
       background: rgba(0, 133, 161, .1);
       color: var(--brand-dark);
-      margin-bottom: 0.8rem;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      padding: .22rem .6rem;
     }
 
     .field {
-      margin: 0.6rem 0;
-      font-size: 0.96rem;
+      margin: .5rem 0;
+      font-size: .96rem;
     }
 
-    .field strong {
-      color: #111;
-    }
-
-    ul {
-      margin: 0.65rem 0 1rem 1.1rem;
-      padding: 0;
-    }
-
-    li {
-      margin-bottom: 0.4rem;
-    }
+    ul { margin: .7rem 0 1rem 1.1rem; padding: 0; }
+    li { margin-bottom: .35rem; }
 
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.9rem;
-      margin-top: 1.2rem;
+      gap: .9rem;
+      margin-top: 1.1rem;
     }
 
     .step {
-      padding: 1.1rem;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--bg-soft);
+      padding: 1rem;
     }
 
     .step-number {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: var(--brand);
-      color: var(--white);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      background: var(--brand);
+      color: #fff;
+      font-size: .85rem;
       font-weight: 700;
-      margin-bottom: 0.6rem;
+      margin-bottom: .55rem;
     }
 
-    .contact {
+    .contact-cta {
       text-align: center;
       background: #fcfdff;
     }
 
-    .email {
-      font-weight: 700;
-      font-size: 1rem;
-      color: #212529;
-    }
-
     footer {
       border-top: 1px solid var(--line);
-      padding: 1.5rem 0 2rem;
       color: var(--muted);
-      font-size: 0.86rem;
+      font-size: .86rem;
+      padding: 1.4rem 0 2rem;
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding-top: 5.5rem;
-      }
-
-      .section {
-        padding: 3.2rem 0;
-      }
+      body { padding-top: 66px; }
+      .hero { padding-top: 4.2rem; }
+      .section { padding: 3.2rem 0; }
     }
   </style>
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Kike Bodi</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="kit-digital.html">Kit Digital</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
   <main>
     <section class="hero">
       <div class="container">
         <h1>Soluciones Kit Digital para tu empresa</h1>
-        <p>Digitaliza tu negocio con ayudas de hasta 12.000€ financiadas por la Unión Europea – Next Generation EU.</p>
-        <a class="btn" href="#contacto">Solicitar información</a>
+        <p class="subtitle">Digitaliza tu negocio con ayudas de hasta 12.000€ financiadas por la Unión Europea – Next Generation EU</p>
+        <a class="btn-brand" href="contact.html">Solicitar información</a>
 
         <!-- Logos disponibles en https://acelerapyme.gob.es -->
         <div class="logo-row">
-          <div class="logo-placeholder" role="img" aria-label="Logo Next Generation EU">
-            <strong>[LOGO NEXT GENERATION EU]</strong>
-            <span class="hint">filename: logo-next-generation-eu.png</span>
-          </div>
-          <div class="logo-placeholder" role="img" aria-label="Logo Kit Digital">
-            <strong>[LOGO KIT DIGITAL]</strong>
-            <span class="hint">filename: logo-kit-digital.png</span>
-          </div>
+          <figure class="logo-card">
+            <img src="https://ec.europa.eu/regional_policy/images/information-sources/logo-download-center/eu_funded_en.jpg" alt="Logo Next Generation EU">
+            <figcaption class="logo-hint">filename: logo-next-generation-eu.png</figcaption>
+          </figure>
+          <figure class="logo-card">
+            <img src="https://portal.gestion.sedepkd.red.gob.es/portal/common/img/logo_kit_digital.png" alt="Logo Kit Digital">
+            <figcaption class="logo-hint">filename: logo-kit-digital.png</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -273,18 +254,18 @@
     <section class="section" id="que-es">
       <div class="container">
         <h2>Qué es el Kit Digital</h2>
-        <p class="lead">El Programa Kit Digital es una iniciativa pública para impulsar la transformación digital del tejido empresarial. Está financiado por fondos europeos Next Generation EU dentro del Plan de Recuperación, Transformación y Resiliencia, y permite a empresas y autónomos acceder a soluciones tecnológicas mediante un bono digital.</p>
-        <p class="lead">Pueden beneficiarse autónomos, microempresas y pequeñas empresas de entre 0 y 49 empleados. El proceso funciona así: la empresa beneficiaria solicita y obtiene el bono, firma un acuerdo de prestación con un Agente Digitalizador Adherido y, tras la implantación y justificación de la solución, Red.es abona directamente el importe al digitalizador conforme a las bases del programa.</p>
+        <p class="lead">El Programa Kit Digital es una iniciativa pública para impulsar la transformación digital de autónomos y pymes. Está financiado por fondos europeos Next Generation EU dentro del Plan de Recuperación, Transformación y Resiliencia, y permite contratar soluciones tecnológicas mediante un bono digital.</p>
+        <p class="lead">Pueden beneficiarse autónomos, microempresas y pequeñas empresas de 0 a 49 empleados. El beneficiario recibe un bono digital, firma el acuerdo con un Agente Digitalizador Adherido y Red.es abona directamente al digitalizador tras la correcta implantación y justificación de la solución.</p>
       </div>
     </section>
 
     <section class="section" id="soluciones">
       <div class="container">
         <h2>Soluciones</h2>
-        <p class="lead">Estas soluciones se ofrecen dentro del marco del Programa Kit Digital para los segmentos de beneficiarios establecidos por Red.es.</p>
+        <p class="lead">Soluciones propuestas dentro del marco del Programa Kit Digital para los segmentos de beneficiarios definidos por Red.es.</p>
 
         <div class="cards">
-          <article class="card">
+          <article class="card-solution">
             <span class="tag">Business Intelligence y Analítica</span>
             <h3>Sistema de Inteligencia para subvenciones y ayudas públicas</h3>
             <p class="field"><strong>Descripción:</strong> Servicio de monitorización continua y alertas personalizadas de subvenciones, ayudas públicas y convocatorias relevantes para la empresa, mediante un sistema de inteligencia artificial entrenado sobre fuentes oficiales españolas y europeas (BDNS, BOE, DOGV, CDTI, Horizon Europe y otras).</p>
@@ -300,7 +281,7 @@
             <p class="field"><strong>Precio:</strong> Desde 1.200€ hasta 3.000€ (sin IVA) según configuración y segmento.</p>
           </article>
 
-          <article class="card">
+          <article class="card-solution">
             <span class="tag">Gestión de Procesos</span>
             <h3>Automatización de procesos empresariales con IA</h3>
             <p class="field"><strong>Descripción:</strong> Análisis, diseño e implementación de automatizaciones de procesos internos mediante inteligencia artificial, con el objetivo de reducir trabajo manual, eliminar errores repetitivos y mejorar la eficiencia operativa.</p>
@@ -323,32 +304,19 @@
       <div class="container">
         <h2>Cómo funciona</h2>
         <div class="steps">
-          <div class="step">
-            <span class="step-number">1</span>
-            <p>Comprueba si tu empresa es elegible.</p>
-          </div>
-          <div class="step">
-            <span class="step-number">2</span>
-            <p>Solicita tu bono Kit Digital en acelerapyme.gob.es.</p>
-          </div>
-          <div class="step">
-            <span class="step-number">3</span>
-            <p>Contacta con nosotros y seleccionamos la solución.</p>
-          </div>
-          <div class="step">
-            <span class="step-number">4</span>
-            <p>Implementamos y Red.es abona directamente al digitalizador.</p>
-          </div>
+          <div class="step"><span class="step-number">1</span><p>Comprueba si tu empresa es elegible.</p></div>
+          <div class="step"><span class="step-number">2</span><p>Solicita tu bono Kit Digital en acelerapyme.gob.es.</p></div>
+          <div class="step"><span class="step-number">3</span><p>Contacta con nosotros y seleccionamos la solución.</p></div>
+          <div class="step"><span class="step-number">4</span><p>Implementamos y Red.es abona directamente al digitalizador.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section contact" id="contacto">
+    <section class="section contact-cta" id="contacto">
       <div class="container">
         <h2>¿Listo para digitalizar tu empresa?</h2>
         <p class="lead">Cuéntanos tu caso y te orientamos sin compromiso sobre qué solución Kit Digital se adapta mejor a tu negocio.</p>
-        <p class="email">[TU EMAIL DE CONTACTO]</p>
-        <a class="btn" href="mailto:[TU EMAIL DE CONTACTO]?subject=Consulta%20Kit%20Digital">Enviar mensaje</a>
+        <a class="btn-brand" href="contact.html">Enviar mensaje</a>
       </div>
     </section>
   </main>
@@ -358,5 +326,8 @@
       <p>Kike Bodi – Agente Digitalizador Adherido al Programa Kit Digital. Financiado por la Unión Europea – Next Generation EU, dentro del Plan de Recuperación, Transformación y Resiliencia de España. <!-- Añadir número de adhesión cuando sea concedido --></p>
     </div>
   </footer>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
