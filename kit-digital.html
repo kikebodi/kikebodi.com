@@ -45,7 +45,7 @@
     p { margin: 0 0 1rem; }
 
     #mainNav {
-      background: #fff;
+      background: #fff !important;
       border-bottom: 1px solid #eceff1;
       box-shadow: 0 2px 8px rgba(33, 37, 41, .05);
     }
@@ -56,12 +56,17 @@
       letter-spacing: .04em;
       font-size: .78rem;
       text-transform: uppercase;
-      color: #212529;
+      color: #212529 !important;
     }
 
     #mainNav .nav-link.active,
     #mainNav .nav-link:hover {
-      color: var(--brand);
+      color: var(--brand) !important;
+    }
+
+    #mainNav .navbar-toggler {
+      color: #212529 !important;
+      border-color: #adb5bd !important;
     }
 
     .hero {
