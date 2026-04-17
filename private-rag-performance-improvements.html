@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <title>Building a Private RAG System with Ollama, LangChain and Chroma - LLM Engineer | AI Agent Engineer | Senior Software Developer</title>
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building a Private RAG System with LangChain, Chroma, and Local LLMs" />
+  <meta property="og:description" content="Part 7 of the Private RAG series: optimize latency, quality, and cost with practical performance improvements for production." />
+  <meta property="og:url" content="https://kikebodi.com/private-rag-performance-improvements.html" />
+  <meta property="og:image" content="https://kikebodi.com/img/rag-vector-database-landscape.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Private RAG Series | Part 7: Performance improvements" />
+  <meta name="twitter:description" content="Tune chunking, retriever settings, reranking, and caching to improve quality and latency in your private RAG pipeline." />
+  <meta name="twitter:image" content="https://kikebodi.com/img/rag-vector-database-landscape.jpg" />
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
+  <link href="css/clean-blog.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.css" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kikebodi.com/private-rag-performance-improvements.html"
+  },
+  "headline": "Building a Private RAG System with LangChain, Chroma, and Local LLMs",
+  "description": "Part 7 of the Private RAG series: optimize latency, quality, and cost with practical performance improvements for production.",
+  "author": {
+    "@type": "Person",
+    "name": "Enrique Bodí",
+    "url": "https://kikebodi.com"
+  },
+  "datePublished": "2026-03-06",
+  "dateModified": "2026-03-06"
+}
+</script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Kike Bodi</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead" style="background-image: url('img/rag-vector-database-landscape.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Building a Private RAG System with Ollama, LangChain and Chroma</h1>
+            <h2 class="subheading">Part 7: Performance improvements</h2>
+            <span class="meta">Posted by <a href="#">Kike Bodí</a> on March 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <h2 class="section-heading">Series Index</h2>
+          <ol>
+            <li><a href="./private-rag-vector-database.html#rag-prerequisites">Prerequisites</a></li>
+            <li><a href="./private-rag-vector-database.html#rag-populate-db">Populate the Vector Database</a></li>
+            <li><a href="./private-rag-retriever.html#rag-retriever">Vector Retriever</a></li>
+            <li><a href="./private-rag-implementation.html#rag-implementation">RAG Implementation</a></li>
+            <li><a href="./private-rag-implementation.html#rag-ui">Chat UI</a></li>
+            <li><a href="./private-rag-evaluation.html#rag-evaluation">Evaluation</a></li>
+            <li><a href="./private-rag-performance-improvements.html#rag-performance">Performance improvements</a></li>
+          </ol>
+
+          <div id="rag-performance">
+            <h2 class="section-heading">Part 7: Performance improvements</h2>
+            <p>
+              At this point, your private RAG is already functional and measurable. Now we do what every production system
+              needs: reduce latency, improve answer quality, and control cost without breaking reliability.
+            </p>
+
+            <h3>7.1 Profile first, optimize second</h3>
+            <p>Before changing models or parameters, measure where time goes. Typical hotspots are:</p>
+            <ul>
+              <li>Embedding latency during ingestion</li>
+              <li>Retriever and reranker latency at query time</li>
+              <li>Generation latency (especially with large local models)</li>
+            </ul>
+
+            <pre class="line-numbers"><code class="language-python">import time
+
+
+def timed(label: str, fn, *args, **kwargs):
+    start = time.perf_counter()
+    result = fn(*args, **kwargs)
+    elapsed_ms = (time.perf_counter() - start) * 1000
+    print(f"{label}: {elapsed_ms:.1f} ms")
+    return result</code></pre>
+
+            <h3>7.2 Tune chunking and retrieval together</h3>
+            <p>
+              The biggest quality gains usually come from chunking + retrieval tuning. Treat them as a pair, not as
+              independent knobs.
+            </p>
+            <ul>
+              <li>Start with chunk size 400–800 and overlap 10–20%</li>
+              <li>Test top-k values (e.g. 3, 5, 8, 10)</li>
+              <li>Prefer MMR when documents are repetitive</li>
+            </ul>
+
+            <pre class="line-numbers"><code class="language-python">retriever = vector_store.as_retriever(
+    search_type="mmr",
+    search_kwargs={
+        "k": 6,
+        "fetch_k": 24,
+        "lambda_mult": 0.35,
+    },
+)</code></pre>
+
+            <h3>7.3 Add reranking only when it pays off</h3>
+            <p>
+              Rerankers improve precision, but they add latency. The usual winning setup is: retrieve 20-30 chunks,
+              rerank to top 4-6, then send only those to the generation model.
+            </p>
+
+            <pre class="line-numbers"><code class="language-python">candidate_docs = retriever.invoke(question)
+
+# pseudo-code for reranking
+reranked = reranker.rank(question=question, documents=candidate_docs)
+final_context = [item.document for item in reranked[:5]]</code></pre>
+
+            <h3>7.4 Cache aggressively at safe boundaries</h3>
+            <p>Low-risk caches that usually provide immediate value:</p>
+            <ul>
+              <li>Embedding cache (document fingerprint -> vector)</li>
+              <li>Retrieval cache (normalized query -> doc ids)</li>
+              <li>Response cache for repeated internal FAQs</li>
+            </ul>
+
+            <pre class="line-numbers"><code class="language-python">import hashlib
+
+
+def normalized_query_key(query: str) -> str:
+    normalized = " ".join(query.lower().split())
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()</code></pre>
+
+            <h3>7.5 Add quality guardrails</h3>
+            <p>
+              Performance is not only speed. In production, you should fail safely when retrieval confidence is low.
+            </p>
+            <ul>
+              <li>Return "I don't know" when no chunk passes a minimum relevance threshold</li>
+              <li>Always cite source chunks in the final answer</li>
+              <li>Log low-confidence queries for offline tuning</li>
+            </ul>
+
+            <h3>7.6 Final checklist</h3>
+            <p>Before considering your RAG production-ready, verify:</p>
+            <ul>
+              <li>P95 latency and throughput under realistic load</li>
+              <li>Stable retrieval metrics (MRR, nDCG, keyword coverage)</li>
+              <li>No major regression in answer quality metrics</li>
+              <li>Cost per query aligned with business constraints</li>
+            </ul>
+
+            <p>
+              If you have reached this point, you now have a complete end-to-end private RAG workflow: ingestion,
+              retrieval, generation, evaluation, and optimization.
+            </p>
+          </div>
+
+          <hr />
+          <div class="container my-4">
+            <h3>More LLM Engineering articles</h3>
+            <ul>
+              <li>
+                <a href="https://kikebodi.com/private-rag-evaluation.html">RAG Series | Part 5: Evaluation</a>
+                – establish a baseline before any optimization.
+              </li>
+              <li>
+                <a href="https://kikebodi.com/llm-engineering-token-optimization.html">LLM Engineering | Token optimization</a>
+                – practical ideas to reduce cost and latency in production.
+              </li>
+              <li>
+                <a href="https://kikebodi.com/llm-engineering-basic-usage.html">LLM Engineering | Running local LLMs and APIs</a>
+                – Ollama, OpenAI, Anthropic, OpenRouter, LangChain, and LiteLLM.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/clean-blog.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</body>
+
+</html>
